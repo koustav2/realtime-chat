@@ -1,18 +1,8 @@
-'use client'
-import { signOut, useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
+"use client"
+
+import Button from '@/components/ui/Button'
+import { signOut } from 'next-auth/react'
 
 export default function Home() {
-  const { data: session } = useSession()
-  const router = useRouter()
-
-  if (!session) {
-    router.push('/login')
-    return null;
-  }
-
-  else {
-    router.push('/dashboard')
-    return null;
-  }
+  return <button onClick={() => signOut()}>Sign out</button>
 }
