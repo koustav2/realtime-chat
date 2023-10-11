@@ -4,19 +4,21 @@ import Button from "@/components/ui/Button";
 import { FC, useState } from "react";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
-interface pageProps {}
+import { useRouter } from "next/navigation";
+interface pageProps { }
 
-const page: FC<pageProps> = ({}) => {
+const page: FC<pageProps> = ({ }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const loginWithGoogle = async () => {
     setIsLoading(true);
     try {
-      await signIn("google" );
+      await signIn("google");
     } catch (error) {
       // display error message to user
       console.log(error);
-      
+
       toast.error("Something went wrong with your login.");
     } finally {
       setIsLoading(false);
@@ -32,6 +34,7 @@ const page: FC<pageProps> = ({}) => {
       toast;
     } finally {
       setIsLoading(false);
+      router.push("/dashboard")
     }
   };
 
