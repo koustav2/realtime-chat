@@ -1,5 +1,4 @@
-import { FC } from "react";
-import Button from "@/components/ui/Button";
+
 import { authOptions } from "@/lib/auth";
 import { ChevronRight } from 'lucide-react'
 import { getServerSession } from 'next-auth'
