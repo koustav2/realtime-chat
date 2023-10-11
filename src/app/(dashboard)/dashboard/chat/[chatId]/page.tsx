@@ -59,13 +59,13 @@ const page = async ({ params }: pageProps) => {
     }
 
     const partnerId = user.id === userId1 ? userId2 : userId1
-    const chatPartnerRaw = await fetchRedisData(
+    const chatPartnerRaw = (await fetchRedisData(
         'get',
         `
         user:${partnerId}
         `
         ,
-    )
+    )) as string    
     const chatPartner = JSON.parse(chatPartnerRaw) as User
     const messages = await getMessages(chatId)
     // console.log(messages);
