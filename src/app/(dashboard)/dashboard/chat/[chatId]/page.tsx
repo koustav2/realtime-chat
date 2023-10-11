@@ -8,6 +8,7 @@ import { getServerSession } from 'next-auth'
 import { notFound } from 'next/navigation'
 import { FC } from 'react'
 import ChatInput from '@/components/ChatInput'
+import Image from 'next/image'
 
 
 interface pageProps {
@@ -65,7 +66,7 @@ const page = async ({ params }: pageProps) => {
         user:${partnerId}
         `
         ,
-    )) as string    
+    )) as string
     const chatPartner = JSON.parse(chatPartnerRaw) as User
     const messages = await getMessages(chatId)
     // console.log(messages);
@@ -77,10 +78,12 @@ const page = async ({ params }: pageProps) => {
                 <div className='relative flex items-center space-x-4'>
                     <div className='relative'>
                         <div className='relative w-8 sm:w-12 h-8 sm:h-12'>
-                            <img
-                                className='rounded-full object-cover w-full h-full'
+                            <Image
+                                fill
+                                referrerPolicy='no-referrer'
                                 src={chatPartner.image}
-                                alt={chatPartner.name}
+                                alt={`${chatPartner.name} profile picture`}
+                                className='rounded-full'
                             />
                         </div>
                     </div>
