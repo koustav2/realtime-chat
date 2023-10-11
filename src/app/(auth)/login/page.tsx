@@ -22,6 +22,7 @@ const page: FC<pageProps> = ({ }) => {
       toast.error("Something went wrong with your login.");
     } finally {
       setIsLoading(false);
+      router.push("/dashboard")
     }
   };
 
