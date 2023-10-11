@@ -8,7 +8,6 @@ import { getServerSession } from 'next-auth'
 import { notFound } from 'next/navigation'
 import { FC } from 'react'
 import ChatInput from '@/components/ChatInput'
-import Image from 'next/image'
 
 
 interface pageProps {
@@ -60,17 +59,13 @@ const page = async ({ params }: pageProps) => {
     }
 
     const partnerId = user.id === userId1 ? userId2 : userId1
-    const chatPartnerRaw = (await fetchRedisData(
-        'get',
-        `
-        user:${partnerId}
-        `
-        ,
-    )) as string
-    const chatPartner = JSON.parse(chatPartnerRaw) as User
+    const chatPartner = (await db.get(
+        `user:${partnerId}`
+    )) as User
+
     const messages = await getMessages(chatId)
     // console.log(messages);
-
+    
 
     return (
         <div className='flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-6rem)]'>
@@ -78,12 +73,10 @@ const page = async ({ params }: pageProps) => {
                 <div className='relative flex items-center space-x-4'>
                     <div className='relative'>
                         <div className='relative w-8 sm:w-12 h-8 sm:h-12'>
-                            <Image
-                                fill
-                                referrerPolicy='no-referrer'
+                            <img
+                                className='rounded-full object-cover w-full h-full'
                                 src={chatPartner.image}
-                                alt={`${chatPartner.name} profile picture`}
-                                className='rounded-full'
+                                alt={chatPartner.name}
                             />
                         </div>
                     </div>
