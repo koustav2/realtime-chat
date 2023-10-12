@@ -15,21 +15,21 @@ export default withAuth(
     const isAccessingSensitiveRoute = sensitiveRoutes.some((route) =>
       pathname.startsWith(route)
     )
-
+   
     if (isLoginPage) {
       if (isAuth) {
-        return NextResponse.redirect('https://realtime-chat-sandy.vercel.app//dashboard');
+        return NextResponse.redirect(new URL('/dashboard', req.url))
       }
 
-      return NextResponse.next();
+      // return NextResponse.next()
     }
 
     if (!isAuth && isAccessingSensitiveRoute) {
-      return NextResponse.redirect('https://realtime-chat-sandy.vercel.app//login');
+      return NextResponse.redirect(new URL('/login', req.url))
     }
 
     if (pathname === '/') {
-      return NextResponse.redirect('https://realtime-chat-sandy.vercel.app//dashboard');
+      return NextResponse.redirect(new URL('/dashboard', req.url))
     }
   },
   {
