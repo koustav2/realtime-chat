@@ -8,6 +8,7 @@ import { getServerSession } from 'next-auth'
 import { notFound } from 'next/navigation'
 import { FC } from 'react'
 import ChatInput from '@/components/ChatInput'
+import Example from '@/components/Options'
 
 
 interface pageProps {
@@ -64,6 +65,7 @@ const page = async ({ params }: pageProps) => {
     )) as User
 
     const messages = await getMessages(chatId)
+    // const del = await db.del(`chat:5049d69d-07f0-45b6-9c51-5d256b4dd194--6da20bd9-ca48-4d7d-86e9-bf88ce736f5d:messages`)
 
 
 
@@ -95,6 +97,7 @@ const page = async ({ params }: pageProps) => {
                         <span className='text-sm text-gray-600'>{chatPartner.email}</span>
                     </div>
                 </div>
+                {/* <Example del={del} /> */}
             </div>
             <Messages
                 chatId={chatId}
