@@ -44,6 +44,7 @@ function Messages({
     const formatTimestamp = (timestamp: number) => {
         return format(timestamp, 'HH:mm')
     }
+
     return (
         <div
             id='messages'

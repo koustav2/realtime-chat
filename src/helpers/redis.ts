@@ -1,7 +1,7 @@
 const restUrl = process.env.UPSTASH_REDIS_REST_URL
 const authToken = process.env.UPSTASH_REDIS_REST_TOKEN
 
-type cmd = 'zrange' | 'sismember' | 'get' | 'smembers'
+type cmd = 'zrange' | 'sismember' | 'get' | 'smembers';
 
 export async function fetchRedisData(
   cmd: cmd,
@@ -23,3 +23,7 @@ export async function fetchRedisData(
   const data = await res.json()
   return data.result
 }
+
+
+
+

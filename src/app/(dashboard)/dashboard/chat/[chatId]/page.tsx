@@ -64,8 +64,12 @@ const page = async ({ params }: pageProps) => {
     )) as User
 
     const messages = await getMessages(chatId)
-    // console.log(messages);
-    
+
+
+
+
+
+
 
     return (
         <div className='flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-6rem)]'>

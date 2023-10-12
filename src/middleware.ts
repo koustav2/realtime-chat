@@ -8,14 +8,14 @@ export default withAuth(
 
     // Manage route protection
     const isAuth = await getToken({ req })
-    console.log('Token:', isAuth)
+    // console.log('Token:', isAuth)
     const isLoginPage = pathname.startsWith('/login')
-    console.log('isLoginPage:', isLoginPage)
+    // console.log('isLoginPage:', isLoginPage)
     const sensitiveRoutes = ['/dashboard']
     const isAccessingSensitiveRoute = sensitiveRoutes.some((route) =>
       pathname.startsWith(route)
     )
-    console.log('isAccessingSensitiveRoute:', isAccessingSensitiveRoute)
+    // console.log('isAccessingSensitiveRoute:', isAccessingSensitiveRoute)
     if (isLoginPage) {
       if (isAuth) {
         return NextResponse.redirect(new URL('/dashboard', req.url))
