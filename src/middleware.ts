@@ -9,19 +9,15 @@ export default withAuth(
 
     const isAuth = await getToken({ req })
     // console.log('Token:', isAuth)
-    const isLoginPage = pathname.startsWith('/login')
 
     const sensitiveRoutes = ['/dashboard']
     const isAccessingSensitiveRoute = sensitiveRoutes.some((route) =>
       pathname.startsWith(route)
     )
-   
-    if (isLoginPage) {
-      if (isAuth) {
-        return NextResponse.redirect(new URL('/dashboard', req.url))
-      }
 
-      return NextResponse.next()
+
+    if (isAuth) {
+      return NextResponse.redirect(new URL('/dashboard', req.url))
     }
 
     if (!isAuth && isAccessingSensitiveRoute) {
