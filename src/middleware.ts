@@ -8,16 +8,9 @@ export default withAuth(
 
     // Manage route protection
     const isAuth = await getToken({ req })
-    // console.log('Token:', isAuth)
-    const isLoginPage = pathname.startsWith('/login')
-
-    const sensitiveRoutes = ['/dashboard']
-    const isAccessingSensitiveRoute = sensitiveRoutes.some((route) =>
-      pathname.startsWith(route)
-    )
   
 
-    if (!isAuth && isAccessingSensitiveRoute) {
+    if (!isAuth ) {
       return NextResponse.redirect(new URL('/login', req.url))
     }
     if (isAuth){
@@ -31,7 +24,7 @@ export default withAuth(
   {
     callbacks: {
       async authorized() {
-        return true
+        return false
       },
     },
   }
