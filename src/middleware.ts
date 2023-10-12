@@ -18,18 +18,18 @@ export default withAuth(
 
     if (isLoginPage) {
       if (isAuth) {
-        return NextResponse.redirect('/dashboard');
+        return NextResponse.redirect('https://realtime-chat-sandy.vercel.app//dashboard');
       }
 
       return NextResponse.next();
     }
 
     if (!isAuth && isAccessingSensitiveRoute) {
-      return NextResponse.redirect('/login');
+      return NextResponse.redirect('https://realtime-chat-sandy.vercel.app//login');
     }
 
     if (pathname === '/') {
-      return NextResponse.redirect('/dashboard');
+      return NextResponse.redirect('https://realtime-chat-sandy.vercel.app//dashboard');
     }
   },
   {
