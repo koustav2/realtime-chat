@@ -22,7 +22,7 @@ const page: FC<pageProps> = ({ }) => {
       toast.error("Something went wrong with your login.");
     } finally {
       setIsLoading(false);
-      router.push("/dashboard")
+      // router.push("/dashboard")
     }
   };
 
@@ -35,7 +35,7 @@ const page: FC<pageProps> = ({ }) => {
       toast;
     } finally {
       setIsLoading(false);
-      router.push("/dashboard")
+      // router.push("/dashboard")
     }
   };
 
