@@ -17,7 +17,7 @@ const page: FC<pageProps> = ({ }) => {
       await signIn("google");
     } catch (error) {
       // display error message to user
-      console.log(error);
+      // console.log(error);
 
       toast.error("Something went wrong with your login.");
     } finally {
@@ -32,7 +32,7 @@ const page: FC<pageProps> = ({ }) => {
       await signIn("github");
     } catch (error) {
       // display error message to user
-      toast;
+      toast.error("Something went wrong with your login.");
     } finally {
       setIsLoading(false);
       // router.push("/dashboard")
