@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 
 
 export default async function middleware(req) {
-  const pathname = req.nextUrl.pathname
+  const { pathname } = req.nextUrl
 
   const isAuth = await getToken({ req })
   const isLoginPage = pathname.startsWith('/login')
@@ -30,6 +30,6 @@ export default async function middleware(req) {
   }
 }
 
-// export const config = {
-//   matcher: ['/', '/login', '/dashboard/:path*'],
-// }
+export const config = {
+  matcher: ['/', '/login', '/dashboard/:path*'],
+}
