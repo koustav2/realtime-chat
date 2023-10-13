@@ -2,34 +2,44 @@ import { getToken } from 'next-auth/jwt'
 import { withAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
 
+export default withAuth(
+  async function middleware(req) {
+    const pathname = req.nextUrl.pathname
 
-export default async function middleware(req) {
-  const { pathname } = req.nextUrl
+    // Manage route protection
+    const isAuth = await getToken({ req })
+    // console.log('Token:', isAuth)
+    const isLoginPage = pathname.startsWith('/login')
 
-  const isAuth = await getToken({ req })
-  const isLoginPage = pathname.startsWith('/login')
+    const sensitiveRoutes = ['/dashboard']
+    const isAccessingSensitiveRoute = sensitiveRoutes.some(route =>
+      pathname.startsWith(route)
+    )
 
-  const sensitiveRoutes = ['/dashboard']
-  const isAccessingSensitiveRoute = sensitiveRoutes.some(route =>
-    pathname.startsWith(route)
-  )
+    if (isLoginPage) {
+      if (isAuth) {
+        return NextResponse.redirect(new URL('/dashboard', req.url))
+      }
+      return NextResponse.next()
+    }
 
-  if (isLoginPage) {
-    if (isAuth) {
+    if (!isAuth && isAccessingSensitiveRoute) {
+      return NextResponse.redirect(new URL('/login', req.url))
+    }
+
+    if (pathname === '/') {
       return NextResponse.redirect(new URL('/dashboard', req.url))
     }
-    return NextResponse.next()
   }
-
-  if (!isAuth && isAccessingSensitiveRoute) {
-    return NextResponse.redirect(new URL('/login', req.url))
+  ,
+  {
+    callbacks: {
+      async authorized() {
+        return true
+      },
+    },
   }
-
-  if (pathname === '/') {
-    return NextResponse.redirect(new URL('/dashboard', req.url))
-  }
-}
-
+)
 export const config = {
   matcher: ['/', '/login', '/dashboard/:path*'],
 }
