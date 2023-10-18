@@ -6,9 +6,7 @@ export default withAuth(
   async function middleware(req) {
     const pathname = req.nextUrl.pathname
 
-    // Manage route protection
     const isAuth = await getToken({ req })
-    // console.log('Token:', isAuth)
     const isLoginPage = pathname.startsWith('/login')
 
     const sensitiveRoutes = ['/dashboard']
